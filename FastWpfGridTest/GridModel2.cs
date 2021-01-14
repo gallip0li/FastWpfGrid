@@ -22,9 +22,15 @@ namespace FastWpfGridTest
 
         public override IFastGridCell GetColumnHeader(IFastGridView view, int column)
         {
+	        var primaryKeyImg = GridModelFunctions.PathFromOutputDir("primary_keysmall.png", "Images");
+	        var foreignKeyImg = GridModelFunctions.PathFromOutputDir("foreign_keysmall.png", "Images");
             string image = null;
-            if (column == 0) image = "/Images/primary_keysmall.png";
-            if (column == 2) image = "/Images/foreign_keysmall.png";
+            
+            if (column == 0)
+	            image = primaryKeyImg;
+
+            if (column == 2)
+	            image = foreignKeyImg;
 
             var res = new FastGridCellImpl();
             if (image != null)
@@ -44,7 +50,7 @@ namespace FastWpfGridTest
                     TextData = String.Format("Column {0}", column),
                 });
 
-            var btn = res.AddImageBlock("/Images/foreign_keysmall.png");
+            var btn = res.AddImageBlock(foreignKeyImg);
             btn.MouseHoverBehaviour = MouseHoverBehaviours.HideWhenMouseOut;
             btn.CommandParameter = "TEST";
 
@@ -71,9 +77,12 @@ namespace FastWpfGridTest
                         DecorationColor = Colors.Red,
                 };
             }
+
+            var foreignKeyImg = GridModelFunctions.PathFromOutputDir("foreign_keysmall.png", "Images");
             var impl = new FastGridCellImpl();
+
             impl.AddTextBlock(GetCellText(row, column));
-            var btn = impl.AddImageBlock("/Images/foreign_keysmall.png");
+            var btn = impl.AddImageBlock(foreignKeyImg);
             btn.MouseHoverBehaviour = MouseHoverBehaviours.HideWhenMouseOut;
 
             btn.CommandParameter = "TEST";

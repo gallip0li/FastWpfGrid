@@ -79,9 +79,13 @@ namespace FastWpfGridTest
 
         public override IFastGridCell GetColumnHeader(IFastGridView view, int column)
         {
-            var sortMethod = _isSortAscMap.GetValueOrDefault(column);
-            string image = !sortMethod.HasValue ? "/Images/flip_vertical_small.png" : sortMethod.Value ? "/Images/flip_horizontal_small.png" : "/Images/flip_transform_small.png";
-            string sortCommand = !sortMethod.HasValue ? null : sortMethod.Value ? "Asc" : "Desc";
+	        var flipVerticalImg = GridModelFunctions.PathFromOutputDir("flip_vertical_small.png", "Images");
+	        var flipHorizontalImg = GridModelFunctions.PathFromOutputDir("flip_horizontal_small.png", "Images");
+	        var flipTransImg = GridModelFunctions.PathFromOutputDir("flip_transform_small.png", "Images");
+
+	        var sortMethod = _isSortAscMap.GetValueOrDefault(column);
+	        string image = !sortMethod.HasValue ? flipVerticalImg : sortMethod.Value ? flipHorizontalImg : flipTransImg;
+	        string sortCommand = !sortMethod.HasValue ? null : sortMethod.Value ? "Asc" : "Desc";
 
             var cell = new FastGridCellImpl();
             cell.AddTextBlock(_dataTable.Columns[column].ColumnName).IsBold = true;
