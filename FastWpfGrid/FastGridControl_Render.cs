@@ -111,6 +111,8 @@ namespace FastWpfGrid
             ClearInvalidation();
         }
 
+
+
         private void RenderGridHeader()
         {
             if (Model == null) return;
@@ -149,9 +151,10 @@ namespace FastWpfGrid
 
             Color? hoverColor = null;
             if (row == _mouseOverRowHeader) hoverColor = MouseOverRowColor;
-
+            
             RenderCell(cell, rect, null, hoverColor ?? selectedBgColor ?? cellBackground ?? HeaderBackground, new FastGridCellAddress(row, null));
         }
+
 
         private void RenderCell(int row, int col)
         {
@@ -163,7 +166,9 @@ namespace FastWpfGrid
             if (_currentCell.TestCell(row, col) || _selectedCells.Contains(new FastGridCellAddress(row, col)))
             {
                 selectedBgColor = _isLimitedSelection ? LimitedSelectedColor : SelectedColor;
-                selectedTextColor = _isLimitedSelection ? LimitedSelectedTextColor : SelectedTextColor;
+                Color? selectedTextColorSelector = _isLimitedSelection ? LimitedSelectedTextColor : SelectedTextColor;
+
+                selectedTextColor = SelectedTextColorIsDisabled ? null : selectedTextColorSelector ;
             }
             if (row == _mouseOverRow)
             {
@@ -173,12 +178,17 @@ namespace FastWpfGrid
 
             Color? cellBackground = null;
             if (cell != null) cellBackground = cell.BackgroundColor;
-
-            RenderCell(cell, rect, selectedTextColor, selectedBgColor
-                                                      ?? hoverRowColor
-                                                      ?? cellBackground
-                                                      ?? GetAlternateBackground(row),
-                                                      new FastGridCellAddress(row, col));
+            
+            RenderCell(
+	            cell, 
+	            rect, 
+	            selectedTextColor, 
+	            selectedBgColor ?? 
+	            hoverRowColor ?? 
+	            cellBackground ?? 
+	            GetAlternateBackground(row),
+	            new FastGridCellAddress(row, col)
+	        );
         }
 
         private int GetCellContentHeight(IFastGridCell cell)
