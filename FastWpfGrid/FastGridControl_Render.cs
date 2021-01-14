@@ -135,7 +135,7 @@ namespace FastWpfGrid
             Color? hoverColor = null;
             if (col == _mouseOverColumnHeader) hoverColor = MouseOverRowColor;
 
-            RenderCell(cell, rect, null, hoverColor ?? selectedBgColor ?? cellBackground ?? HeaderBackground, new FastGridCellAddress(null, col));
+            RenderCell(cell, rect, HeaderTextColor, hoverColor ?? selectedBgColor ?? cellBackground ?? HeaderBackground, new FastGridCellAddress(null, col));
         }
 
         private void RenderRowHeader(int row)
@@ -152,7 +152,7 @@ namespace FastWpfGrid
             Color? hoverColor = null;
             if (row == _mouseOverRowHeader) hoverColor = MouseOverRowColor;
             
-            RenderCell(cell, rect, null, hoverColor ?? selectedBgColor ?? cellBackground ?? HeaderBackground, new FastGridCellAddress(row, null));
+            RenderCell(cell, rect, HeaderTextColor, hoverColor ?? selectedBgColor ?? cellBackground ?? HeaderBackground, new FastGridCellAddress(row, null));
         }
 
 
