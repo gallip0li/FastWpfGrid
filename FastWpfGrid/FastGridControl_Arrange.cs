@@ -470,7 +470,7 @@ namespace FastWpfGrid
             }
         }
 
-        public void ResizeColumns(int[] sizes)
+        public void ResizeColumns(double[] sizes)
         {
 	        _columnSizes.Clear();
 
@@ -478,7 +478,7 @@ namespace FastWpfGrid
 	        {
 		        var pixelSize = Math.Ceiling(sizes[i] * DpiDetector.DpiXKoef);
 		        _columnSizes.PutSizeOverride(i, Convert.ToInt32(pixelSize));
-            }
+	        }
 
 	        _columnSizes.BuildIndex();
         }
