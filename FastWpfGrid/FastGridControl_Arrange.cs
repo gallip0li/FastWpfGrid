@@ -476,8 +476,9 @@ namespace FastWpfGrid
 
 	        for (var i = 0; i < sizes.Length; i++)
 	        {
-		        _columnSizes.PutSizeOverride(i, sizes[i]);
-	        }
+		        var pixelSize = Math.Ceiling(sizes[i] * DpiDetector.DpiXKoef);
+		        _columnSizes.PutSizeOverride(i, Convert.ToInt32(pixelSize));
+            }
 
 	        _columnSizes.BuildIndex();
         }
