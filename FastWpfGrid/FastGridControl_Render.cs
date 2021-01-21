@@ -246,7 +246,10 @@ namespace FastWpfGrid
             switch (block.BlockType)
             {
                 case FastGridBlockType.Text:
-                    var font = GetFont(block.IsBold, block.IsItalic);
+                    var font = cellAddr.IsColumnHeader ? 
+                        GetFont(block.IsBold, block.IsItalic, true) : 
+                        GetFont(block.IsBold, block.IsItalic);
+
                     int textHeight = font.GetTextHeight(block.TextData);
                     width = font.GetTextWidth(block.TextData, _columnSizes.MaxSize);
                     height = textHeight;
@@ -287,8 +290,10 @@ namespace FastWpfGrid
                     if (renderBlock)
                     {
                         var textOrigin = new IntPoint(leftAlign ? leftPos : rightPos - width, top);
-                        var font = GetFont(block.IsBold, block.IsItalic);
-                        _drawBuffer.DrawString(textOrigin.X, textOrigin.Y, rectContent, selectedTextColor ?? block.FontColor ?? CellFontColor, UseClearType ? bgColor : (Color?) null,
+                        var font = cellAddr.IsColumnHeader ? GetFont(block.IsBold, block.IsItalic, true) : GetFont(block.IsBold, block.IsItalic);
+                        var fontColor = cellAddr.IsColumnHeader ? HeaderFontColor : block.FontColor ?? CellFontColor;
+
+                        _drawBuffer.DrawString(textOrigin.X, textOrigin.Y, rectContent, fontColor, UseClearType ? bgColor : (Color?) null,
                                                font,
                                                block.TextData);
                     }
