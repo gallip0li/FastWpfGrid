@@ -80,6 +80,9 @@ namespace FastWpfGrid
             ValidateRequredProps();
         }
 
+        public ScrollBar[] GetScrollBars() =>
+	        new[] { hscroll, vscroll };
+
         void ValidateRequredProps()
 		{
             var reqProps = 
