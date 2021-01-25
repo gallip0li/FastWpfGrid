@@ -35,11 +35,30 @@ namespace FastWpfGridTest
             grid2.Model = _model2 = new GridModel2();
             grid3.Model = _model3 = new GridModel3();
             grid4.Model = _model4 = new GridModel4();
+
+
+            grid4.HeaderFontColor = Colors.Blue;
+            grid4.HeaderFontIsBold = true;
+            grid4.HeaderFontIsItalic = true;
+            //grid4.GetColumnSizes().SetColumnSize(1, 400);
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            grid4.HeaderFontSize = 30;
             grid1.ContextMenuOpening += Grid1_ContextMenuOpening;
+            //grid4.MouseOverRowColor = (Color) ColorConverter.ConvertFromString("Blue");
+            grid4.SelectedTextColorIsDisabled = true;
+            grid4.SetGridContentSize(1200, 1200);
+            
+            grid3.InvalidateAll();
+            grid4.InvalidateColumn(1);
+            grid4.Width = 350;
+            
+            grid4.SetGridContentSize(1200, 700);
+
+
         }
 
         private void Grid1_ContextMenuOpening(object sender, ContextMenuEventArgs e)
